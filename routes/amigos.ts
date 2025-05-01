@@ -48,4 +48,17 @@ router.post('/amigos', async (req, res) =>{
     }
 })
 
+router.delete('/amigos/:id', async (req, res) =>{
+    const { id } = req.params
+
+    try {
+        const amigos = await prisma.amigos.delete({
+            where: { id: Number(id)}
+        })
+        res.status(200).json(amigos)
+    } catch (error) {
+        res.status(400).json({ erro: error })
+    }
+})
+
 export default router
